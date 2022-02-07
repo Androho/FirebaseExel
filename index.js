@@ -23,7 +23,7 @@ document.getElementById('button').addEventListener("click", () => {
             workbook.SheetNames.forEach(sheet => {
                 let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
                 temp.push(rowObject);
-                upload = Object.assign({}, temp).toString();
+                upload = Object.assign({}, temp);
                 document.getElementById("jsondata").innerHTML = "<button type='button' onclick='jsonToFirestore()' >Upload to Firebase</button><br>"+JSON.stringify(upload);
             });
         }
@@ -32,6 +32,7 @@ document.getElementById('button').addEventListener("click", () => {
 // sending firebase
 
 const firebaseConfig = {
+
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -43,7 +44,7 @@ const jsonToFirestore = async () => {
             document.getElementById("jsondata").innerHTML = "<span>Document successfully written!</span>"
         });
     } catch (err) {
-        document.getElementById("jsondata").innerHTML = "<span class='error'>" + err.name + " : " + err.message + "</span>"
+        document.getElementById("jsondata").innerHTML = "<span class='error' style='color: red;'>" + err.name + " : " + err.message + "</span>"
     }
 };
 
